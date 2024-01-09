@@ -23,4 +23,8 @@ public class User {
         this.email = email;
         this.pwd = pwd;
     }
+
+    public void changePassword(String encodedPassword) {
+        this.pwd = encodedPassword;
+    }
 }

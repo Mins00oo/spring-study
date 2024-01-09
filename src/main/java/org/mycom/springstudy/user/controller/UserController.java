@@ -4,14 +4,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mycom.springstudy.user.dto.UserTokenDto;
+import org.mycom.springstudy.user.dto.request.UserChangePassword;
 import org.mycom.springstudy.user.dto.request.UserCreateRequest;
 import org.mycom.springstudy.user.dto.request.UserLoginRequest;
 import org.mycom.springstudy.user.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -22,7 +20,6 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<Object> createUser(@RequestBody UserCreateRequest request) {
-        log.info("request confirm");
         userService.createUser(request);
         return ResponseEntity.ok("생성 완료");
     }
@@ -32,4 +29,12 @@ public class UserController {
         UserTokenDto userToken = userService.login(loginRequest, response);
         return ResponseEntity.ok(userToken);
     }
+
+    @PutMapping("/password")
+    public ResponseEntity<Object> changePassword(@RequestBody UserChangePassword changePassword) {
+
+        return ResponseEntity.ok("");
+    }
+
+
 }

@@ -56,4 +56,21 @@ public class JwtTokenProvider {
         response.setHeader(AUTHORIZATION_HEADER, "Bearer " + accessToken);
     }
 
+    public static String getUserEmail(String token) {
+        return extractClaims(token).get("email", String.class);
+    }
+
+    public static Claims extractClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getKey(secretKey))
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    public static boolean isExpired(String token) {
+        Date expiredDate = extractClaims(token).getExpiration();
+        return expiredDate.before(new Date());
+    }
+
 }

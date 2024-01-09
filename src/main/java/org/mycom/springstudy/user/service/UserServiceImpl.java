@@ -5,7 +5,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mycom.springstudy.common.utils.JwtTokenProvider;
 import org.mycom.springstudy.user.domain.User;
+import org.mycom.springstudy.user.dto.UserDetailsDto;
 import org.mycom.springstudy.user.dto.UserTokenDto;
+import org.mycom.springstudy.user.dto.request.UserChangePassword;
 import org.mycom.springstudy.user.dto.request.UserCreateRequest;
 import org.mycom.springstudy.user.dto.request.UserLoginRequest;
 import org.mycom.springstudy.user.repository.UserRepository;
@@ -66,5 +68,16 @@ public class UserServiceImpl implements UserService {
         return new UserTokenDto(tokenDto.getAccessToken());
     }
 
+    @Override
+    public void changePassword(UserChangePassword userChangePassword) {
+        String encodedPassword = encoder.encode(userChangePassword.getChangePassword());
+    }
 
+    @Override
+    public UserDetailsDto loadUserByEmail(String email) {
+        User registedUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new BadCredentialsException("df"));
+
+        return UserDetailsDto.toEntity(registedUser);
+    }
 }
