@@ -1,1 +1,3 @@
-# spring-study
+# 스프링을 활용한 개인 공부
+> 스프링부트를 사용해서 security, jwt, websocket 등 여러 기능들을 구현해보며 학습해보기 위한 공간입니다.
+
