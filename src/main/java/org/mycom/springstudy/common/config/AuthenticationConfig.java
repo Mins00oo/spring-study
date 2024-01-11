@@ -1,7 +1,6 @@
 package org.mycom.springstudy.common.config;
 
 import lombok.RequiredArgsConstructor;
-import org.mycom.springstudy.common.utils.filter.JwtTokenFilter;
 import org.mycom.springstudy.user.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @RequiredArgsConstructor
 @EnableMethodSecurity
@@ -22,6 +20,9 @@ public class AuthenticationConfig {
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
+                .cors(httpSecurityCorsConfigurer -> {
+
+                })
                 .csrf(AbstractHttpConfigurer::disable
                 )
                 .authorizeHttpRequests((authorizeRequests) ->
@@ -32,9 +33,9 @@ public class AuthenticationConfig {
                 .sessionManagement(
                         (sessionManagement) ->
                                 sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(
-                        new JwtTokenFilter(userService),
-                        UsernamePasswordAuthenticationFilter.class)
+//                .addFilterBefore(
+//                        new JwtTokenFilter(userService),
+//                        UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 }
