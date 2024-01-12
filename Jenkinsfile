@@ -11,7 +11,6 @@ pipeline {
         stage('build') {
             agent any
             steps {
-                sh 'chmod +x gradlew'
                 sh "./gradlew bootJar"
             }
             post {
