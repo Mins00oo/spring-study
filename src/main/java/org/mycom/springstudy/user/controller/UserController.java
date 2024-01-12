@@ -41,6 +41,9 @@ public class UserController {
     public ResponseEntity<Object> changePassword2(@RequestBody UserChangePassword changePassword) {
 
         String a = "123";
+        String B = "123";
+        String C = "123";
+
         return ResponseEntity.ok("");
     }
 
