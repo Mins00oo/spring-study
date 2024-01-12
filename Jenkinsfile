@@ -2,18 +2,16 @@ pipeline {
     agent none
     options { skipDefaultCheckout(false) }
     stages {
-        stage('git pull') {
+        stage('Github') {
             agent any
-            steps {
-                checkout scm
-            }
+           steps {
+               git branch: 'main', url: 'https://github.com/Mins00oo/spring-study.git'
+           }
         }
-        stage('build gradle') {
+        stage('build') {
             agent any
             steps {
-                sh 'chmod +x gradlew'
-                sh  './gradlew clean build'
-                sh 'ls -al ./build'
+                sh "./gradlew bootJar"
             }
             post {
                 success {
@@ -28,7 +26,7 @@ pipeline {
         stage('Docker Build') {
             agent any
             steps {
-                sh 'docker build -t user-service:latest /var/jenkins_home/workspace/BE_USER_REPO'
+                sh 'docker build -t user-service:latest /var/jenkins_home/workspace/be_user'
             }
             post {
                 success {
