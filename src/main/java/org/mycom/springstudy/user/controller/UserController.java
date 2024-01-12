@@ -40,6 +40,7 @@ public class UserController {
     @PutMapping("/password/vs")
     public ResponseEntity<Object> changePassword2(@RequestBody UserChangePassword changePassword) {
 
+        String a = "123";
         return ResponseEntity.ok("");
     }
 
