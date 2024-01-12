@@ -37,4 +37,10 @@ public class UserController {
     }
 
 
+    @PutMapping("/password/vs")
+    public ResponseEntity<Object> changePassword2(@RequestBody UserChangePassword changePassword) {
+
+        return ResponseEntity.ok("");
+    }
+
 }
