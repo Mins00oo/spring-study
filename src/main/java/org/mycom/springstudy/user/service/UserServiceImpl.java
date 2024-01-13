@@ -45,6 +45,7 @@ public class UserServiceImpl implements UserService {
         checkPassword(loginRequest.getPwd(), savedUser.getPwd());
 
         // jwt 발급
+        // refresh
         UserTokenDto token = generateToken(loginRequest.getEmail());
 
         jwtTokenProvider.setAccessTokenInHeader(token.getAccessToken(), response);
