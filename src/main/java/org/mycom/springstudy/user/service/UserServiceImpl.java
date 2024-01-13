@@ -40,12 +40,11 @@ public class UserServiceImpl implements UserService {
     public UserTokenDto login(UserLoginRequest loginRequest, HttpServletResponse response) {
         User savedUser = userRepository
                 .findByEmail(loginRequest.getEmail())
-                .orElseThrow(() -> new BadCredentialsException("이메일 틀렸음"));
+                .orElseThrow(() -> new BadCredentialsException("이메일 틀렸음dd"));
 
         checkPassword(loginRequest.getPwd(), savedUser.getPwd());
 
         // jwt 발급
-        // refresh
         UserTokenDto token = generateToken(loginRequest.getEmail());
 
         jwtTokenProvider.setAccessTokenInHeader(token.getAccessToken(), response);
