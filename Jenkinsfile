@@ -48,9 +48,6 @@ pipeline {
                 sh 'docker container ls -a -f name=user-service -q \
         | xargs -r docker container rm'
 
-                sh 'docker images -f dangling=true && \
-                docker rmi $(docker images -f dangling=true -q)'
-
                 sh 'docker run -d --name user-service \
                 -p 8000:8000 \
                 -v /etc/localtime:/etc/localtime:ro \
