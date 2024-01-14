@@ -3,6 +3,7 @@ package org.mycom.springstudy.user.controller;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.mycom.springstudy.user.domain.Team;
 import org.mycom.springstudy.user.dto.UserTokenDto;
 import org.mycom.springstudy.user.dto.request.UserChangePassword;
 import org.mycom.springstudy.user.dto.request.UserCreateRequest;
@@ -40,11 +41,8 @@ public class UserController {
     @PutMapping("/password/vs")
     public ResponseEntity<Object> changePassword2(@RequestBody UserChangePassword changePassword) {
 
-        String a = "123";
-        String B = "1235555";
-        String Bcc = "1235555";
-
         return ResponseEntity.ok("");
     }
+
 
 }
