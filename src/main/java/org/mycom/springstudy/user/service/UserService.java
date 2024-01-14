@@ -1,6 +1,7 @@
 package org.mycom.springstudy.user.service;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.mycom.springstudy.user.domain.Team;
 import org.mycom.springstudy.user.dto.UserDetailsDto;
 import org.mycom.springstudy.user.dto.UserTokenDto;
 import org.mycom.springstudy.user.dto.request.UserChangePassword;
@@ -15,4 +16,6 @@ public interface UserService {
     void changePassword(UserChangePassword userChangePassword);
 
     UserDetailsDto loadUserByEmail(String email);
+
+    Team teamByMemberId(Long memberId);
 }

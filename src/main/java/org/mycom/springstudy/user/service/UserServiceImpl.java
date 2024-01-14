@@ -4,12 +4,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mycom.springstudy.common.utils.JwtTokenProvider;
+import org.mycom.springstudy.user.domain.Member;
+import org.mycom.springstudy.user.domain.Team;
 import org.mycom.springstudy.user.domain.User;
 import org.mycom.springstudy.user.dto.UserDetailsDto;
 import org.mycom.springstudy.user.dto.UserTokenDto;
 import org.mycom.springstudy.user.dto.request.UserChangePassword;
 import org.mycom.springstudy.user.dto.request.UserCreateRequest;
 import org.mycom.springstudy.user.dto.request.UserLoginRequest;
+import org.mycom.springstudy.user.repository.MemberRepository;
 import org.mycom.springstudy.user.repository.UserRepository;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,6 +27,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final MemberRepository memberRepository;
 
     @Override
     public void createUser(UserCreateRequest request) {
@@ -40,12 +44,11 @@ public class UserServiceImpl implements UserService {
     public UserTokenDto login(UserLoginRequest loginRequest, HttpServletResponse response) {
         User savedUser = userRepository
                 .findByEmail(loginRequest.getEmail())
-                .orElseThrow(() -> new BadCredentialsException("이메일 틀렸음"));
+                .orElseThrow(() -> new BadCredentialsException("이메일 틀렸음dd"));
 
         checkPassword(loginRequest.getPwd(), savedUser.getPwd());
 
         // jwt 발급
-        // refresh
         UserTokenDto token = generateToken(loginRequest.getEmail());
 
         jwtTokenProvider.setAccessTokenInHeader(token.getAccessToken(), response);
@@ -80,5 +83,13 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new BadCredentialsException("df"));
 
         return UserDetailsDto.toEntity(registedUser);
+    }
+
+    @Override
+    public Team teamByMemberId(Long memberId) {
+        Member member = memberRepository.findById(memberId).get();
+        System.out.println("member = " + member.getTeam());
+
+        return member.getTeam();
     }
 }
