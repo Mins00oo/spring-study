@@ -1,6 +1,6 @@
 spring:
-  config:
-    import: classpath:env.yml
+  profiles:
+    include: env
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${DB_USERNAME}

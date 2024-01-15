@@ -5,6 +5,8 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
+    volumes:
+      - ./src/main/resources:/src/main/resources
     ports:
       - "8081:8081"
     restart: always
