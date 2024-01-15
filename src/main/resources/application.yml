@@ -1,9 +1,11 @@
 spring:
+  config:
+    import: classpath:env.yml
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    url: jdbc:mysql://localhost:3306/study
-    password: '1234'
+    username: ${DB_USERNAME}
+    url: ${DB_URL}
+    password: ${DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
@@ -15,7 +17,6 @@ spring:
     serialization:
       fail-on-empty-beans: 'false'
 
-
 jwt:
-  secretKey: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
-  accessExpiredTimeMs: 86400	# 초
+  secretKey: ${JWT_SECRET_KEY}
+  accessExpiredTimeMs: ${JWT_ACCESS_EXPIRED_TIME_MS}
