@@ -8,13 +8,6 @@ pipeline {
                git branch: 'main', url: 'https://github.com/Mins00oo/spring-study.git'
            }
         }
-
-        stage('Copy application-env.yml') {
-            agent any  // agent 지시어 추가
-            sh '''
-                cp /src/main/resources/application-env.yml /home/jenkins/workspace/be_user/src/main/resources
-            '''
-        }
         stage('build') {
             agent any
             steps {
