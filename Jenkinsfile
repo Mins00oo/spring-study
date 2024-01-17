@@ -8,14 +8,6 @@ pipeline {
                git branch: 'main', url: 'https://github.com/Mins00oo/spring-study.git'
            }
         }
-
-        stage('Copy application-env.yml') {
-            agent any  // agent 지시어 추가
-            steps {
-                // 경로 확인 및 Jenkins 워크스페이스 내에서 파일 복사
-                sh 'cp src/main/resources/application-env.yml /src/main/resources'
-            }
-        }
         stage('build') {
             agent any
             steps {
