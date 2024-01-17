@@ -22,16 +22,4 @@ public abstract class BaseTimeEntity {
     private LocalDateTime updateDt;
 
     private LocalDateTime deleteDt;
-
-    public LocalDateTime getCreateAt() {
-        return createDt;
-    }
-
-    public LocalDateTime getUpdateAt() {
-        return updateDt;
-    }
-
-    public LocalDateTime getDeleteAt() {
-        return deleteDt;
-    }
 }
