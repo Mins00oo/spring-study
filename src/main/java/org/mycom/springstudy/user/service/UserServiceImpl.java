@@ -3,6 +3,7 @@ package org.mycom.springstudy.user.service;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.mycom.springstudy.common.config.Role;
 import org.mycom.springstudy.common.utils.JwtTokenProvider;
 import org.mycom.springstudy.user.domain.Member;
 import org.mycom.springstudy.user.domain.Team;
@@ -49,9 +50,9 @@ public class UserServiceImpl implements UserService {
         checkPassword(loginRequest.getPwd(), savedUser.getPwd());
 
         // jwt 발급
-        UserTokenDto token = generateToken(loginRequest.getEmail());
+        UserTokenDto token = generateToken(loginRequest.getEmail(), savedUser.getRole());
 
-        jwtTokenProvider.setAccessTokenInHeader(token.getAccessToken(), response);
+        JwtTokenProvider.setAccessTokenInHeader(token.getAccessToken(), response);
         // 추후에 refreshToken도 함께 발급
 
         return token;
@@ -63,10 +64,10 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private UserTokenDto generateToken(String requestEmail) {
+    private UserTokenDto generateToken(String requestEmail, Role role) {
         UserTokenDto tokenDto =
                 UserTokenDto.builder()
-                        .accessToken(jwtTokenProvider.createAccessToken(requestEmail))
+                        .accessToken(jwtTokenProvider.createAccessToken(requestEmail, role))
                         .build();
 
         return new UserTokenDto(tokenDto.getAccessToken());

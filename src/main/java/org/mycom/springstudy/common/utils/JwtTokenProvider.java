@@ -7,6 +7,7 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.mycom.springstudy.common.config.Role;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -35,9 +36,10 @@ public class JwtTokenProvider {
     }
 
     public String createAccessToken(
-            String email) {
+            String email, Role role) {
         Claims claims = Jwts.claims();
         claims.put("email", email);
+        claims.put("role", role);
 
         return Jwts.builder()
                 .setClaims(claims)
