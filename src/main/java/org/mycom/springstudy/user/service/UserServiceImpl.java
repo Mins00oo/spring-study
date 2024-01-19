@@ -38,6 +38,8 @@ public class UserServiceImpl implements UserService {
                 request,
                 encoder.encode(request.getPwd())
         );
+
+
         userRepository.save(user);
     }
 

@@ -32,6 +32,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        log.info("000000");
         User user = userRepository.findByEmail(String.valueOf(authentication.getPrincipal()))
                 .orElseThrow(() -> new BadCredentialsException("회원 x"));
 

@@ -28,29 +28,20 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
 
         UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
 
-        log.info(String.valueOf(authentication));
-        log.info(String.valueOf(token));
-
         String username = token.getName();
         String password = String.valueOf(token.getCredentials());
 
-        log.info("username:" + username);
-        log.info("password:" + password);
-        log.info("creden: " + token.getCredentials());
-
         UserDetailsImpl userDetails;
 
-        User user = userRepository.findByEmail(password)
+        User user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new BadCredentialsException("이메일 틀림"));
-        log.info("username:" + username);
         userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(username);
 
 
-        log.info("ddd");
         if (!bCryptPasswordEncoder.matches(password, user.getPwd())) {
             throw new BadCredentialsException("비번 틀림");
         }
-        log.info("zdzd");
+
         return new UsernamePasswordAuthenticationToken(userDetails.getUsername(), "", userDetails.getAuthorities());
 
     }

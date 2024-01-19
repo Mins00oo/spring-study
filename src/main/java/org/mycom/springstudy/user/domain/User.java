@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.Comment;
 import org.mycom.springstudy.common.config.BaseTimeEntity;
 import org.mycom.springstudy.common.config.Role;
@@ -14,13 +15,14 @@ import java.util.Collection;
 
 @Entity
 @Getter
+@ToString
 @NoArgsConstructor
 public class User extends BaseTimeEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(name = "user_email" , unique = true)
     private String email;
 
     private String pwd;

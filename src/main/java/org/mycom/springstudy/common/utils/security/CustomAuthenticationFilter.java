@@ -22,7 +22,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         final UsernamePasswordAuthenticationToken authRequest;
-
         final UserLoginRequest userLoginDto;
         try {
             // 사용자 요청 정보로 UserPasswordAuthenticationToken 발급
