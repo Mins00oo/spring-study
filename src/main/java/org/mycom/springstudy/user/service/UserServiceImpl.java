@@ -19,7 +19,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Service
 @Slf4j
@@ -34,12 +35,14 @@ public class UserServiceImpl implements UserService {
     public void createUser(UserCreateRequest request) {
         // 기존에 가입되었는지 검증 필요 => 예외처리
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         User user = UserCreateRequest.toEntity(
                 request,
                 encoder.encode(request.getPwd()),
-                Role.USER
+                Role.USER,
+                LocalDateTime.parse(request.getDate(), formatter)
         );
-
 
         userRepository.save(user);
     }

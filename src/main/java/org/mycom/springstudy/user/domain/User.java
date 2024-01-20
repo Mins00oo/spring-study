@@ -1,5 +1,6 @@
 package org.mycom.springstudy.user.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,6 +12,7 @@ import org.mycom.springstudy.common.config.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Entity
@@ -39,11 +41,14 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Comment("사진 저장 이름")
     private String saveName;
 
+    private LocalDateTime date;
+
     @Builder
-    public User(String email, String pwd, Role role) {
+    public User(String email, String pwd, Role role, LocalDateTime date) {
         this.email = email;
         this.pwd = pwd;
         this.role = role;
+        this.date = date;
     }
 
     public void changePassword(String encodedPassword) {
