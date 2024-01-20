@@ -4,14 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mycom.springstudy.common.utils.CustomUserDetailService;
 import org.mycom.springstudy.common.utils.UserDetailsImpl;
-import org.mycom.springstudy.user.domain.User;
-import org.mycom.springstudy.user.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +16,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Slf4j
 public class AuthenticationProviderImpl implements AuthenticationProvider {
-    private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final CustomUserDetailService userDetailsService;
 
@@ -33,16 +29,13 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
 
         UserDetailsImpl userDetails;
 
-        User user = userRepository.findByEmail(username)
-                .orElseThrow(() -> new BadCredentialsException("이메일 틀림"));
         userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(username);
 
-
-        if (!bCryptPasswordEncoder.matches(password, user.getPwd())) {
+        if (!bCryptPasswordEncoder.matches(password, userDetails.getPassword())) {
             throw new BadCredentialsException("비번 틀림");
         }
 
-        return new UsernamePasswordAuthenticationToken(userDetails.getUsername(), "", userDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
 
     }
 

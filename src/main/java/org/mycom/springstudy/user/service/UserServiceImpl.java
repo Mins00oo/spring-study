@@ -36,7 +36,8 @@ public class UserServiceImpl implements UserService {
 
         User user = UserCreateRequest.toEntity(
                 request,
-                encoder.encode(request.getPwd())
+                encoder.encode(request.getPwd()),
+                Role.USER
         );
 
 

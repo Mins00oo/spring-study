@@ -4,7 +4,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mycom.springstudy.common.config.BaseResponse;
+import org.mycom.springstudy.common.utils.UserDetailsImpl;
 import org.mycom.springstudy.user.domain.Team;
+import org.mycom.springstudy.user.dto.UserDetailsDto;
 import org.mycom.springstudy.user.dto.UserTokenDto;
 import org.mycom.springstudy.user.dto.request.UserChangePassword;
 import org.mycom.springstudy.user.dto.request.UserCreateRequest;
@@ -12,6 +14,7 @@ import org.mycom.springstudy.user.dto.request.UserLoginRequest;
 import org.mycom.springstudy.user.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -35,17 +38,11 @@ public class UserController {
     }
 
     @PutMapping("/password")
-    public ResponseEntity<Object> changePassword(@RequestBody UserChangePassword changePassword) {
+    public ResponseEntity<Object> changePassword(@RequestBody UserChangePassword changePassword,
+                                                 @AuthenticationPrincipal UserDetailsImpl user) {
 
-        return ResponseEntity.ok("");
+        System.out.println("user = " + user);
+        return ResponseEntity.status(HttpStatus.OK).body("dd");
     }
-
-
-    @PutMapping("/password/vs??")
-    public ResponseEntity<Object> changePassword2(@RequestBody UserChangePassword changePassword) {
-
-        return ResponseEntity.ok("");
-    }
-
 
 }
