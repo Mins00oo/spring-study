@@ -9,11 +9,14 @@ import org.mycom.springstudy.user.dto.UserTokenDto;
 import org.mycom.springstudy.user.dto.request.UserChangePassword;
 import org.mycom.springstudy.user.dto.request.UserCreateRequest;
 import org.mycom.springstudy.user.dto.request.UserLoginRequest;
+import org.mycom.springstudy.user.dto.response.CompanyResponseDto;
 import org.mycom.springstudy.user.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -41,6 +44,21 @@ public class UserController {
 
         System.out.println("user = " + user);
         return ResponseEntity.status(HttpStatus.OK).body("dd");
+    }
+
+    @GetMapping("/dto")
+    public ResponseEntity<Object> retrieveUserToken() {
+        ArrayList<UserTokenDto> userTokenDtos = new ArrayList<>();
+        UserTokenDto userTokenDto = new UserTokenDto("Bearer saaa");
+        userTokenDtos.add(userTokenDto);
+
+        CompanyResponseDto response = CompanyResponseDto.builder()
+                .id(1L)
+                .name("dd")
+                .where("hi")
+                .tokens(userTokenDtos)
+                .build();
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(response));
     }
 
 }

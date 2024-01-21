@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.mycom.springstudy.common.ErrorCode;
+import org.mycom.springstudy.common.exception.BaseException;
 import org.mycom.springstudy.user.dto.request.UserLoginRequest;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,7 +33,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
             userLoginDto = new ObjectMapper().readValue(request.getInputStream(), UserLoginRequest.class);
             authRequest = new UsernamePasswordAuthenticationToken(userLoginDto.getEmail(), userLoginDto.getPwd());
         } catch (IOException e) {
-            throw new BadCredentialsException("bad");
+            throw new BaseException(ErrorCode.NOT_VALID_EMAIL);
         }
 
         Authentication authentication = this.getAuthenticationManager().authenticate(authRequest);

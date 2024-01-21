@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
     public UserTokenDto login(UserLoginRequest loginRequest, HttpServletResponse response) {
         User savedUser = userRepository
                 .findByEmail(loginRequest.getEmail())
-                .orElseThrow(() -> new BadCredentialsException("이메일 틀렸음dd"));
+                .orElseThrow(() -> new BaseException(ErrorCode.NOT_VALID_EMAIL));
 
         checkPassword(loginRequest.getPwd(), savedUser.getPwd());
 
