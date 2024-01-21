@@ -8,4 +8,5 @@ import org.mycom.springstudy.common.ErrorCode;
 @AllArgsConstructor
 public class BaseException extends RuntimeException {
     private final ErrorCode errorCode;
+
 }

@@ -8,6 +8,7 @@ pipeline {
                git branch: 'main', url: 'https://github.com/Mins00oo/spring-study.git'
            }
         }
+
         stage('build') {
             agent any
             steps {
