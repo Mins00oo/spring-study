@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.mycom.springstudy.common.config.BaseResponse;
+import org.mycom.springstudy.common.BaseResponse;
 import org.mycom.springstudy.common.utils.JwtTokenProvider;
 import org.mycom.springstudy.user.domain.User;
 import org.mycom.springstudy.user.repository.UserRepository;

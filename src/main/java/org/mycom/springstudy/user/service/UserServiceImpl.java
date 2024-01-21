@@ -3,7 +3,9 @@ package org.mycom.springstudy.user.service;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.mycom.springstudy.common.ErrorCode;
 import org.mycom.springstudy.common.config.Role;
+import org.mycom.springstudy.common.exception.BaseException;
 import org.mycom.springstudy.common.utils.JwtTokenProvider;
 import org.mycom.springstudy.user.domain.Member;
 import org.mycom.springstudy.user.domain.Team;
@@ -34,6 +36,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void createUser(UserCreateRequest request) {
         // 기존에 가입되었는지 검증 필요 => 예외처리
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new BaseException(ErrorCode.ALREADY_EXIST);
+        }
+
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 

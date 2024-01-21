@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.mycom.springstudy.common.exception.GlobalException;
+import org.mycom.springstudy.common.exception.BaseException;
 import org.mycom.springstudy.common.utils.JwtTokenProvider;
 import org.mycom.springstudy.user.dto.UserDetailsDto;
 import org.mycom.springstudy.user.service.UserService;
@@ -57,7 +57,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             log.info("Token verification successful. URI: {}", request.getRequestURI());
 
         } catch (RuntimeException e) {
-            if (e instanceof GlobalException) {
+            if (e instanceof BaseException) {
                 ObjectMapper objectMapper = new ObjectMapper();
                 // response로 Exception Handling 필수!
             }

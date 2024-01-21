@@ -1,4 +1,4 @@
-package org.mycom.springstudy.common.config;
+package org.mycom.springstudy.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,7 +16,7 @@ public class BaseResponse<T> {
     private final String message;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String error;
+    private int code;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)  // null인 데이터는 안나오도록 함(요청 실패한 경우)
     private T result;
@@ -29,9 +29,10 @@ public class BaseResponse<T> {
     }
 
     // 요청 실패한 경우
-    public BaseResponse(String message, String error) {
-        this.isSuccess = false;
-        this.message = message;
-        this.error = error;
+    public BaseResponse(ErrorCode error) {
+        this.isSuccess = error.isSuccess();
+        this.message = error.getMessage();
+        this.code = error.getCode();
+        this.result = null;
     }
 }
