@@ -8,15 +8,6 @@ pipeline {
                git branch: 'main', url: 'https://github.com/Mins00oo/spring-study.git'
            }
         }
-        stage('secret.yml download') {
-            steps {
-                withCredentials([file(credentialsId: 'db-credentials', variable: 'dbConfigFile')]) {
-                    script {
-                        sh 'cp $dbConfigFile src/main/resources/application-db.yml'
-                    }
-                }
-            }
-        }
 
         stage('build') {
             agent any
