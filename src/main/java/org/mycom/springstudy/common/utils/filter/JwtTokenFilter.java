@@ -29,7 +29,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private final String AUTHORIZATION_HEADER = "Authorization";
 
     private static final List<String> PERMIT_URLS =
-            List.of("/", "/h2", "/api/v1/users", "/api/v1/users/login", "/chat");
+            List.of("/", "/h2", "/api/v1/users", "/api/v1/login", "/chat");
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

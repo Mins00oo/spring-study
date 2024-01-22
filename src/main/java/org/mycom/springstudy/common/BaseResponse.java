@@ -8,7 +8,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-@JsonPropertyOrder({"isSuccess", "message", "error", "result"})
+@JsonPropertyOrder({"isSuccess", "message", "code", "result"})
 public class BaseResponse<T> {
 
     @JsonProperty("isSuccess")
@@ -30,7 +30,7 @@ public class BaseResponse<T> {
     }
 
     // 요청 실패한 경우
-    public BaseResponse(ErrorCode error) {
+    public BaseResponse(StatusCode error) {
         this.isSuccess = error.isSuccess();
         this.message = error.getMessage();
         this.code = error.getCode();

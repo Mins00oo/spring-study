@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mycom.springstudy.common.BaseResponse;
+import org.mycom.springstudy.common.StatusCode;
 import org.mycom.springstudy.common.utils.JwtTokenProvider;
 import org.mycom.springstudy.common.utils.UserDetailsImpl;
 import org.mycom.springstudy.user.dto.UserTokenDto;
@@ -30,23 +31,15 @@ public class UserController {
     @PostMapping
     public ResponseEntity<Object> createUser(@RequestBody UserCreateRequest request) {
         userService.createUser(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new BaseResponse<>("회원이 생성되었습니다."));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new BaseResponse<>(StatusCode.SUCCESS));
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestBody UserLoginRequest loginRequest, HttpServletResponse response) {
-        UserTokenDto userToken = userService.login(loginRequest, response);
-        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(userToken));
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<Object> login(@RequestBody UserLoginRequest loginRequest, HttpServletResponse response) {
+//        UserTokenDto userToken = userService.login(loginRequest, response);
+//        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(userToken));
+//    }
 
-    @PutMapping("/password")
-    public ResponseEntity<Object> changePassword(@RequestBody UserChangePassword changePassword,
-                                                 @AuthenticationPrincipal UserDetailsImpl user) {
-
-        Long userId = jwtTokenProvider.getMemberId("asdsa");
-        System.out.println("user = " + user);
-        return ResponseEntity.status(HttpStatus.OK).body("비밀번호 변경되었습니다.");
-    }
 
     @GetMapping("/dto")
     public ResponseEntity<Object> retrieveUserToken() {

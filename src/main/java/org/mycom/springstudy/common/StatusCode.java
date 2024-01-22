@@ -3,7 +3,7 @@ package org.mycom.springstudy.common;
 import lombok.Getter;
 
 @Getter
-public enum ErrorCode {
+public enum StatusCode {
     // Success
     SUCCESS(true, 100, "요청에 성공하였습니다."),
 
@@ -20,7 +20,7 @@ public enum ErrorCode {
     private final int code;
     private final String message;
 
-    ErrorCode(boolean isSuccess, int code, String message) {
+    StatusCode(boolean isSuccess, int code, String message) {
         this.isSuccess = isSuccess;
         this.code = code;
         this.message = message;

@@ -7,8 +7,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mycom.springstudy.common.BaseResponse;
+import org.mycom.springstudy.common.StatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
@@ -24,14 +26,13 @@ public class AuthFailureHandler implements AuthenticationFailureHandler {
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+        log.info(request.getRequestURI());
+        log.info(String.valueOf(SecurityContextHolder.getContext().getAuthentication()));
         response.setCharacterEncoding("UTF-8");
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(200);
 
-        String result = "로그인 정보를 다시 확인해주세요!";
-
-        log.info(result);
-        BaseResponse<String> baseResponse = new BaseResponse<>(result);
+        BaseResponse<String> baseResponse = new BaseResponse<>(StatusCode.BAD_REQUEST);
 
 
         mapper.writeValue(response.getWriter(), baseResponse);

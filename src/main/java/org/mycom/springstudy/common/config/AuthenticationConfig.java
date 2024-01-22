@@ -39,13 +39,13 @@ public class AuthenticationConfig {
                         authorizeRequests
                                 .requestMatchers("/**").permitAll()
                 )
+                .addFilterAt(customAuthenticationFilter(http.getSharedObject(AuthenticationManager.class)), UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(
                         (sessionManagement) ->
                                 sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 //                .addFilterBefore(
 //                        new JwtTokenFilter(userService),
 //                        CustomAuthenticationFilter.class)
-                .addFilterAt(customAuthenticationFilter(http.getSharedObject(AuthenticationManager.class)), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 

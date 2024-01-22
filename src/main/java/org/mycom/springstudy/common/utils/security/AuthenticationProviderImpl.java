@@ -2,8 +2,6 @@ package org.mycom.springstudy.common.utils.security;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.mycom.springstudy.common.ErrorCode;
-import org.mycom.springstudy.common.exception.BaseException;
 import org.mycom.springstudy.common.utils.CustomUserDetailService;
 import org.mycom.springstudy.common.utils.UserDetailsImpl;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -34,7 +32,7 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
         userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(username);
 
         if (!bCryptPasswordEncoder.matches(password, userDetails.getPassword())) {
-            throw new NullPointerException("비밀번호 틀림");
+            throw new BadCredentialsException("비밀번호 틀림");
         }
 
         log.info("password match");

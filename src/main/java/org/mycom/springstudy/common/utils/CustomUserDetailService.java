@@ -18,6 +18,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.info("sql start1");
         User user = userRepository
                 .findByEmail(username)
                 .orElseThrow(() -> new BadCredentialsException("x"));

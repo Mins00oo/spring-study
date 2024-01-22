@@ -1,6 +1,5 @@
 package org.mycom.springstudy.user.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,17 +8,14 @@ import lombok.ToString;
 import org.hibernate.annotations.Comment;
 import org.mycom.springstudy.common.config.BaseTimeEntity;
 import org.mycom.springstudy.common.config.Role;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 
 @Entity
 @Getter
 @ToString
 @NoArgsConstructor
-public class User extends BaseTimeEntity implements UserDetails {
+public class User extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -53,38 +49,4 @@ public class User extends BaseTimeEntity implements UserDetails {
         this.pwd = encodedPassword;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return null;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
 }

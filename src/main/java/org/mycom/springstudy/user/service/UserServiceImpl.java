@@ -3,7 +3,7 @@ package org.mycom.springstudy.user.service;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.mycom.springstudy.common.ErrorCode;
+import org.mycom.springstudy.common.StatusCode;
 import org.mycom.springstudy.common.config.Role;
 import org.mycom.springstudy.common.exception.BaseException;
 import org.mycom.springstudy.common.utils.JwtTokenProvider;
@@ -21,9 +21,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -37,7 +34,7 @@ public class UserServiceImpl implements UserService {
     public void createUser(UserCreateRequest request) {
         // 기존에 가입되었는지 검증 필요 => 예외처리
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new BaseException(ErrorCode.ALREADY_EXIST);
+            throw new BaseException(StatusCode.ALREADY_EXIST);
         }
 
         User user = UserCreateRequest.toEntity(
@@ -53,7 +50,7 @@ public class UserServiceImpl implements UserService {
     public UserTokenDto login(UserLoginRequest loginRequest, HttpServletResponse response) {
         User savedUser = userRepository
                 .findByEmail(loginRequest.getEmail())
-                .orElseThrow(() -> new BaseException(ErrorCode.NOT_VALID_EMAIL));
+                .orElseThrow(() -> new BaseException(StatusCode.NOT_VALID_EMAIL));
 
         checkPassword(loginRequest.getPwd(), savedUser.getPwd());
 
