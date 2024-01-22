@@ -34,9 +34,10 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
         userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(username);
 
         if (!bCryptPasswordEncoder.matches(password, userDetails.getPassword())) {
-            throw new BaseException(ErrorCode.NOT_VALID_PASSWORD);
+            throw new NullPointerException("비밀번호 틀림");
         }
 
+        log.info("password match");
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
 
     }

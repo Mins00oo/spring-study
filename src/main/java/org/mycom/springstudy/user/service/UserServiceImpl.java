@@ -40,14 +40,10 @@ public class UserServiceImpl implements UserService {
             throw new BaseException(ErrorCode.ALREADY_EXIST);
         }
 
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
         User user = UserCreateRequest.toEntity(
                 request,
                 encoder.encode(request.getPwd()),
-                Role.USER,
-                LocalDateTime.parse(request.getDate(), formatter)
+                Role.USER
         );
 
         userRepository.save(user);

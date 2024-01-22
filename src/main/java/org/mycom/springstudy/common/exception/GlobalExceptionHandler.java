@@ -19,11 +19,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(200)
                 .body(new BaseResponse<>(exception.getErrorCode()));
     }
-
-    @ExceptionHandler(UsernameNotFoundException.class)
-    protected ResponseEntity<?> handleBadCredentialsException(UsernameNotFoundException e) {
-        log.error("handleBadCredentialsException", e);
-        return ResponseEntity.status(201)
-                .body(new BaseResponse<>(e.getMessage()));
-    }
+//
+//    @ExceptionHandler(UsernameNotFoundException.class)
+//    protected ResponseEntity<?> handleBadCredentialsException(UsernameNotFoundException e) {
+//        log.error("handleBadCredentialsException", e);
+//        return ResponseEntity.status(201)
+//                .body(new BaseResponse<>(e.getMessage()));
+//    }
 }

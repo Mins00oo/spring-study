@@ -62,6 +62,10 @@ public class JwtTokenProvider {
         return extractClaims(token).get("email", String.class);
     }
 
+    public Long getMemberId(String token) {
+        return extractClaims(token).get("id", Long.class);
+    }
+
     public static Claims extractClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getKey(secretKey))

@@ -13,20 +13,17 @@ public class UserCreateRequest {
 
     private String pwd;
 
-    private String date;
 
 
     public static User toEntity(
             UserCreateRequest request,
             String encodedPassword,
-            Role role,
-            LocalDateTime date
+            Role role
             ) {
         return User.builder()
                 .email(request.getEmail())
                 .pwd(encodedPassword)
                 .role(role)
-                .date(date)
                 .build();
     }
 }

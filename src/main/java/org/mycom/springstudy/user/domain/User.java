@@ -24,7 +24,6 @@ public class User extends BaseTimeEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_email" , unique = true)
     private String email;
 
     private String pwd;
@@ -44,11 +43,10 @@ public class User extends BaseTimeEntity implements UserDetails {
     private LocalDateTime date;
 
     @Builder
-    public User(String email, String pwd, Role role, LocalDateTime date) {
+    public User(String email, String pwd, Role role) {
         this.email = email;
         this.pwd = pwd;
         this.role = role;
-        this.date = date;
     }
 
     public void changePassword(String encodedPassword) {

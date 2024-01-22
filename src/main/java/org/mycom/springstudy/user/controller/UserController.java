@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mycom.springstudy.common.BaseResponse;
+import org.mycom.springstudy.common.utils.JwtTokenProvider;
 import org.mycom.springstudy.common.utils.UserDetailsImpl;
 import org.mycom.springstudy.user.dto.UserTokenDto;
 import org.mycom.springstudy.user.dto.request.UserChangePassword;
@@ -24,12 +25,12 @@ import java.util.ArrayList;
 @Slf4j
 public class UserController {
     private final UserService userService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping
     public ResponseEntity<Object> createUser(@RequestBody UserCreateRequest request) {
         userService.createUser(request);
-        String result = "생성이 완료되었습니다.";
-        return ResponseEntity.status(HttpStatus.CREATED).body(new BaseResponse<>(result));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new BaseResponse<>("회원이 생성되었습니다."));
     }
 
     @PostMapping("/login")
@@ -42,8 +43,9 @@ public class UserController {
     public ResponseEntity<Object> changePassword(@RequestBody UserChangePassword changePassword,
                                                  @AuthenticationPrincipal UserDetailsImpl user) {
 
+        Long userId = jwtTokenProvider.getMemberId("asdsa");
         System.out.println("user = " + user);
-        return ResponseEntity.status(HttpStatus.OK).body("dd");
+        return ResponseEntity.status(HttpStatus.OK).body("비밀번호 변경되었습니다.");
     }
 
     @GetMapping("/dto")

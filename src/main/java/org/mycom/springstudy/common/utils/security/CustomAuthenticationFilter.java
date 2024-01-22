@@ -1,20 +1,15 @@
 package org.mycom.springstudy.common.utils.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.mycom.springstudy.common.ErrorCode;
-import org.mycom.springstudy.common.exception.BaseException;
 import org.mycom.springstudy.user.dto.request.UserLoginRequest;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +28,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
             userLoginDto = new ObjectMapper().readValue(request.getInputStream(), UserLoginRequest.class);
             authRequest = new UsernamePasswordAuthenticationToken(userLoginDto.getEmail(), userLoginDto.getPwd());
         } catch (IOException e) {
-            throw new BaseException(ErrorCode.NOT_VALID_EMAIL);
+            throw new NullPointerException("로그인 x");
         }
 
         Authentication authentication = this.getAuthenticationManager().authenticate(authRequest);
@@ -42,12 +37,4 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         return authentication;
     }
 
-
-    @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        SecurityContextHolder.getContext().setAuthentication(authResult);
-
-        chain.doFilter(request, response);
-
-    }
 }

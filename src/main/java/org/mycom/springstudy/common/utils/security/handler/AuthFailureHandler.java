@@ -26,10 +26,11 @@ public class AuthFailureHandler implements AuthenticationFailureHandler {
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         response.setCharacterEncoding("UTF-8");
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.setStatus(204);
+        response.setStatus(200);
 
         String result = "로그인 정보를 다시 확인해주세요!";
 
+        log.info(result);
         BaseResponse<String> baseResponse = new BaseResponse<>(result);
 
 

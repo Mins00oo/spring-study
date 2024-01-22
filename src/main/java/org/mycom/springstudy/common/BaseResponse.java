@@ -26,6 +26,7 @@ public class BaseResponse<T> {
         this.isSuccess = true;
         this.message = "요청에 성공하였습니다.";
         this.result = result;
+        this.code = 100;
     }
 
     // 요청 실패한 경우
